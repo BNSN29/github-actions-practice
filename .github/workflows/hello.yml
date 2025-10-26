@@ -1,10 +1,16 @@
-name: Hello Actions
+# ----- Behind the scene ----------
+  # 1. Github detect an even (for now a push) 
+  # 2. it starts a VM on ubuntu
+  # 3. it execute the command "say-hello"
+  # 4. this command runs the command "echo "Hello.." which will be printed on the interface
+  # 5. the VM is destroyed after the job completes
+name: Hello Actions # Name of the workflow
 
-on: [push]
+on: [push] #one the event that will trigger this workflow
 
-jobs:
-  say-hello:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print Hello
-        run: echo "Hello Github Actions 👋"
+jobs: # Set of instruction (steps) that will be run in a virtual environment
+  say-hello: # Name of this jobs
+    runs-on: ubuntu-latest # the VM that this jobs will be running
+    steps: # one the instruction that will be on the vm
+      - name: Print Hello # Name of this steps
+        run: echo "Hello Github Actions 👋" # command that will literally be run on the VM
