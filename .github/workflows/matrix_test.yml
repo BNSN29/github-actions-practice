@@ -1,0 +1,45 @@
+name: Matrix Test
+run-name: ${{github.actor}} is learning Matrix Node Version Testing
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  matrix-node-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [21, 22]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{matrix.node-version}}
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm test
+      
+        # Conditional Parts...
+      - name: This is Node 21
+        if: matrix.node-version ==21
+        run: echo "Running on Node version 21"
+      
+      - name: This is Node 22
+        if: matrix.node-version ==22
+        run: echo "Running on Node version 22"
+
+      - name: Test passed for version ${{matrix.node-version}}
+        if: success()
+        run: echo "🎉 Tests passed on Node ${{ matrix.node-version }}!"
+      
+
+  
