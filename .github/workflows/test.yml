@@ -18,7 +18,14 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm install
+
       - name: Run Tests
         run: npm test
+      
+      - name: Tests passed!
+        if: success()
+        run: echo "🎉 All tests passed successfully!"
+
+      
 
   
